@@ -17,7 +17,6 @@ class App extends Component {
     this.props.setProductData(data.products);
   }
   render() {
-       console.log('app');
     return (
         <div className="App row">
           <div className="col-sm-4">heloo</div>
@@ -42,6 +41,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
+  console.log(state)
   return {
     data:state.products
   }
