@@ -42,7 +42,6 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
-  console.log("inside app");
   return {
     data:state.products
   }
