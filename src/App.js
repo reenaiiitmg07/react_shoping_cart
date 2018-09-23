@@ -11,15 +11,30 @@ class App extends Component {
         flag:0,
         sizes:[]
       }
-
+   this.showSize=this.showSize.bind(this);
+  }
+  showSize(e){
+    let size = new Set();
+    this.props.data.map((item)=>{
+     let asize=[];
+     asize=item['availableSizes'];
+     asize.map((x)=>{
+       size.add(x);
+     })
+    })
+   this.setState({size:size});
   }
   componentWillMount(){
     this.props.setProductData(data.products);
   }
   render() {
+         console.log(this.state.size);
     return (
         <div className="App row">
-          <div className="col-sm-4">heloo</div>
+          <div className="col-sm-4">
+          <button onClick={this.showSize}>Show Size</button>
+          {this.state.size}
+          </div>
           <div className="col-sm-8">
             <Order />
             <div className="row">
