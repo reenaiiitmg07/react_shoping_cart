@@ -26,6 +26,7 @@ class App extends Component {
        size.add(x);
      })
     })
+    console.log(size);
    this.setState({sizes:size});
 }
 manageCart(e){
@@ -35,12 +36,14 @@ manageCart(e){
     this.props.setProductData(data.products);
   }
   render() {
+    let array=[...this.state.sizes];
     return (
         <div className="App row">
           <div className="col-sm-4">
           <button onClick={this.showSize}>Show Size</button>
-          {this.state.sizes.forEach((value)=>{return(
-            <div><button>{value}</button></div>
+          {array.map((value)=>{
+            return(
+            <div><button className="btn btn-primary">{value}</button></div>
           )
           })}
           </div>
