@@ -4,6 +4,8 @@ import img from './tshirt.jpg';
 import {setProductData} from './action/index';
 import {connect} from 'react-redux';
 import Order from './components/order'
+import Selsize from './components/selectedsize'
+
 //import Cart from './components/cart'
 
 class App extends Component {
@@ -11,41 +13,32 @@ class App extends Component {
     super(props);
       this.state={
         flag:0,
-        sizes:[],
         cart:[]
       }
-   this.showSize=this.showSize.bind(this);
    this.manageCart=this.manageCart.bind(this);
   }
-  showSize(e){
-    let size = new Set();
-    this.props.data.map((item)=>{
-     let asize=[];
-     asize=item['availableSizes'];
-     asize.map((x)=>{
-       size.add(x);
-     })
-    })
-    console.log(size);
-   this.setState({sizes:size});
-}
+  
 manageCart(e){
- console.log(e.target.value);
+ let id=e.target.value;
+console.log(id);
+let arr=this.props.data;
+let lcart=[];
+console.log(arr);
+arr.map((item)=>{
+  if(id==item.id)
+  lcart['id']=item.id;
+  lcart['price']=item.price;
+})
+console.log(lcart);
 }
   componentWillMount(){
     this.props.setProductData(data.products);
   }
   render() {
-    let array=[...this.state.sizes];
     return (
         <div className="App row">
           <div className="col-sm-4">
-          <button onClick={this.showSize}>Show Size</button>
-          {array.map((value)=>{
-            return(
-            <div><button className="btn btn-primary">{value}</button></div>
-          )
-          })}
+           <Selsize />
           </div>
           <div className="col-sm-8">
                <div className="col-sm-6"><Order /></div>
@@ -72,7 +65,6 @@ manageCart(e){
 }
 
 function mapStateToProps(state){
-  console.log(state)
   return {
     data:state.products
   }
