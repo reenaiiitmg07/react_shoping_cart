@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {setProductData} from '../action/index'
+import {setSizeData} from '../action/index'
 class Selsize extends Component {
   constructor(props){
     super(props);
@@ -9,6 +9,7 @@ class Selsize extends Component {
     }
     this.showSize=this.showSize.bind(this);
     this.selectSize=this.selectSize.bind(this);
+    this.showAll=this.showAll.bind(this);
     }
     showSize(e){
       let size = new Set();
@@ -25,9 +26,14 @@ class Selsize extends Component {
   selectSize(e){
     console.log(e.target.value);
     let avlProd=this.props.data;
-    console.log(avlProd);
-
+    let results=avlProd.filter(item=>item.availableSizes.includes(e.target.value))
+    console.log(results);
+    this.props.setSizeData(results);
   }
+  showAll(){
+    let clear=[];
+   this.props.setSizeData(clear);
+   }
   render(){
     let array=[...this.state.sizes];
     return(
@@ -40,6 +46,7 @@ class Selsize extends Component {
       )
       })}
       </div>
+      <div className="row"><button onClick={this.showAll}>show All</button></div>
       </div>
     )
   }
@@ -50,4 +57,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{setProductData})(Selsize);
+export default connect(mapStateToProps,{setSizeData})(Selsize);
