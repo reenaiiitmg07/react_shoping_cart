@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import data from './data/products';
 import img from './tshirt.jpg';
 import {setProductData} from './action/index';
+import {setCartData} from './action/index';
 import {connect} from 'react-redux';
 import Order from './components/order'
 import Selsize from './components/selectedsize'
-
+import Cart from './components/cart'
 //import Cart from './components/cart'
 
 class App extends Component {
@@ -18,14 +19,17 @@ class App extends Component {
   }
 
 manageCart(item,e){
-  console.log(item);
+  let addItem=this.state.cart;
+  addItem.push(item);
+  console.log(addItem);
+  this.props.setCartData(addItem);
 
 }
   componentWillMount(){
     this.props.setProductData(data.products);
   }
   render() {
-    console.log(this.props.avlPro);
+    //console.log(this.props.avlPro);
     let prodlist=[];
     if(this.props.avlPro.length>0){
        prodlist=this.props.avlPro?this.props.avlPro:this.props.data;
@@ -33,7 +37,7 @@ manageCart(item,e){
     else {
        prodlist=this.props.data;
       }
-    console.log(prodlist);
+    //console.log(prodlist);
     return (
         <div className="App row">
           <div className="col-sm-4">
@@ -41,7 +45,7 @@ manageCart(item,e){
           </div>
           <div className="col-sm-8">
                <div className="col-sm-6"><Order /></div>
-               <div className="col-sm-6">cart</div>
+               <div className="col-sm-6"><Cart /></div>
                 <div className="row">
                 {prodlist?prodlist.map((item)=>{
                 return (
@@ -70,4 +74,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{setProductData})(App);
+export default connect(mapStateToProps,{setProductData,setCartData})(App);
