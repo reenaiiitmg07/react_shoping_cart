@@ -14,7 +14,8 @@ class App extends Component {
     super(props);
       this.state={
         flag:0,
-        cart:[]
+        cart:[],
+        openCart:false
       }
   }
 
@@ -22,6 +23,9 @@ manageCart(item,e){
   let addItem=this.state.cart;
   addItem.push(item);
   console.log(addItem);
+  this.setState({
+    openCart:!this.state.openCart
+  })
   this.props.setCartData(addItem);
 
 }
@@ -60,6 +64,7 @@ manageCart(item,e){
                 </div>
                 )
             }):null}
+            {this.state.openCart?<Cart  show={this.state.openCart}/>:null}
       </div>
       </div>
     </div>
